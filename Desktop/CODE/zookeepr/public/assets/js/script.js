@@ -1,4 +1,5 @@
 const $animalForm = document.querySelector("#animal-form");
+const $zookeeperForm = document.querySelector("#zookeeper-form");
 
 const handleAnimalFormSubmit = (event) => {
   event.preventDefault();
@@ -27,10 +28,7 @@ const handleAnimalFormSubmit = (event) => {
     personalityTraits.push(selectedTraits[i].value);
   }
   const animalObject = { name, species, diet, personalityTraits };
-};
 
-$animalForm.addEventListener("submit", handleAnimalFormSubmit);
-{
   fetch("/api/animals", {
     method: "POST",
     headers: {
@@ -43,10 +41,12 @@ $animalForm.addEventListener("submit", handleAnimalFormSubmit);
       if (response.ok) {
         return response.json();
       }
-      alert("Error: " + response.statusText);
+      alert(`Error: ${response.statusText}`);
     })
     .then((postResponse) => {
       console.log(postResponse);
       alert("Thank you for adding an animal!");
     });
-}
+};
+
+$animalForm.addEventListener("submit", handleAnimalFormSubmit);
